@@ -4,8 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -16,6 +14,7 @@ class AlertSystemEvent implements ShouldBroadcast, ShouldQueue
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public array $details = [];
+
     /**
      * Create a new event instance.
      *
@@ -23,7 +22,7 @@ class AlertSystemEvent implements ShouldBroadcast, ShouldQueue
      */
     public function __construct()
     {
-        $this->details = ['a','b'];
+        $this->details = ['a', 'b'];
     }
 
     public function broadcastOn()

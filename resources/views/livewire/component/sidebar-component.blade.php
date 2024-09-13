@@ -4,7 +4,7 @@
            aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0 d-flex flex-column justify-content-center py-1" href="{{ route('dashboard') }}">
             <div class="d-flex justify-content-center">
-                @php $logo = auth()->user()->agency()->pluck('logo_path') @endphp
+                @php $logo =Auth::user()->agency()->pluck('logo_path') @endphp
                 @isset($logo[0])
                     <img src="{{ \Illuminate\Support\Facades\Storage::url($logo[0]) }}"
                          class="navbar-brand-img" alt="main_logo">

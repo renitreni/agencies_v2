@@ -27,26 +27,26 @@ class AgencyLivewire extends Component
     public function store()
     {
         $this->validate([
-            'details.photo'   => 'required|image|max:1024',    // 1MB Max
+            'details.photo' => 'required|image|max:1024',    // 1MB Max
             'details.address' => 'required',
-            'details.name'    => 'required',
-            'details.poea'    => 'required',
-            'details.cr_no'   => 'required',
-            'details.status'  => 'required',
+            'details.name' => 'required',
+            'details.poea' => 'required',
+            'details.cr_no' => 'required',
+            'details.status' => 'required',
         ]);
 
         $path = $this->details['photo']->store('agency', 'public');
 
         Agency::query()->create([
-            'name'       => $this->details['name'],
-            'address'    => $this->details['address'],
-            'logo_path'  => $path,
-            'poea'       => $this->details['poea'],
-            'cr_no'      => $this->details['cr_no'],
-            'status'     => $this->details['status'],
-            'owner_name'      => $this->details['owner_name'],
-            'contact_number'     => $this->details['contact_number'],
-            'created_by' => auth()->id(),
+            'name' => $this->details['name'],
+            'address' => $this->details['address'],
+            'logo_path' => $path,
+            'poea' => $this->details['poea'],
+            'cr_no' => $this->details['cr_no'],
+            'status' => $this->details['status'],
+            'owner_name' => $this->details['owner_name'],
+            'contact_number' => $this->details['contact_number'],
+            'created_by' => Auth::id(),
         ]);
 
         $this->dispatch('callToaster', ['message' => 'New Agency has been Added!']);
@@ -57,10 +57,10 @@ class AgencyLivewire extends Component
     {
         $this->validate([
             'details.address' => 'required|required', // 1MB Max
-            'details.name'    => 'required|required',
-            'details.poea'    => 'required|required',
-            'details.cr_no'   => 'required|required',
-            'details.status'  => 'required|required',
+            'details.name' => 'required|required',
+            'details.poea' => 'required|required',
+            'details.cr_no' => 'required|required',
+            'details.status' => 'required|required',
         ]);
 
         $path = null;
@@ -74,15 +74,15 @@ class AgencyLivewire extends Component
         Agency::query()
             ->where('id', $this->details['id'])
             ->update([
-                'name'       => $this->details['name'],
-                'address'    => $this->details['address'],
-                'logo_path'  => $path ?? $this->details['logo_path'],
-                'poea'       => $this->details['poea'],
-                'cr_no'      => $this->details['cr_no'],
-                'status'     => $this->details['status'],
-                'owner_name'      => $this->details['owner_name'],
-                'contact_number'     => $this->details['contact_number'],
-                'created_by' => auth()->id(),
+                'name' => $this->details['name'],
+                'address' => $this->details['address'],
+                'logo_path' => $path ?? $this->details['logo_path'],
+                'poea' => $this->details['poea'],
+                'cr_no' => $this->details['cr_no'],
+                'status' => $this->details['status'],
+                'owner_name' => $this->details['owner_name'],
+                'contact_number' => $this->details['contact_number'],
+                'created_by' => Auth::id(),
             ]);
 
         $this->dispatch('callToaster', ['message' => 'Agency has been Updated!']);

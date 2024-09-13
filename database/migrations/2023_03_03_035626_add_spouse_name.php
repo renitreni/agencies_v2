@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('candidates', function (Blueprint $table) {
-          $table->string('spouse_name')->nullable();
-          $table->dropColumn('spouse');
+            $table->string('spouse_name')->nullable();
+            $table->dropColumn('spouse');
 
         });
     }
@@ -28,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('candidates', function (Blueprint $table) {
-          $table->string('spouse')->nullable();
-          $table->dropColumn('spouse_name');
+            $table->string('spouse')->nullable();
+            $table->dropColumn('spouse_name');
         });
     }
 };

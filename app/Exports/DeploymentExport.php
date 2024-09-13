@@ -2,34 +2,29 @@
 
 namespace App\Exports;
 
-use App\Models\Deployment;
 use App\Models\Voucher;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class DeploymentExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents
+class DeploymentExport implements FromCollection, ShouldAutoSize, WithEvents, WithHeadings, WithMapping
 {
+    private $params;
 
-  private $params;
     /**
-    * @return \Illuminate\Support\Collection
-    */
-
-    public function __construct() 
+     * @return \Illuminate\Support\Collection
+     */
+    public function __construct()
     {
-        $this->params = session('export');;
+        $this->params = session('export');
     }
 
     public function collection()
     {
-        
+
         return Voucher::selectRaw('vouchers.*, voucher_statuses.status_date,
         deployments.type,deployments.ppt,deployments.fit,deployments.contract_signing,deployments.age,
         foreign_agencies.agency_name')
@@ -42,17 +37,18 @@ class DeploymentExport implements FromCollection, ShouldAutoSize, WithMapping, W
             ->where('vouchers.status', 'deployed')
             ->when(isset($this->params['account']), function ($q) {
                 $q->where('vouchers.created_by', $this->params['account']);
-            }, fn ($q) => $q->where('vouchers.created_by', auth()->id()))
+            }, fn ($q) => $q->where('vouchers.created_by', Auth::id()))
             ->leftJoin('voucher_statuses', 'voucher_statuses.voucher_id', '=', 'vouchers.id')
             ->leftJoin('foreign_agencies', 'foreign_agencies.id', '=', 'vouchers.agency_id')
             ->leftJoin('deployments', 'deployments.voucher_id', '=', 'vouchers.id')->get();
+
         //  dd($voucher);
-    return $voucher;
+        return $voucher;
     }
 
     public function map($deployment): array
     {
-        return[
+        return [
             $deployment->id,
             $deployment->name,
             $deployment->source,
@@ -70,7 +66,7 @@ class DeploymentExport implements FromCollection, ShouldAutoSize, WithMapping, W
 
     public function headings(): array
     {
-        return[
+        return [
             '#',
             'Applicant',
             'Source',
@@ -85,12 +81,13 @@ class DeploymentExport implements FromCollection, ShouldAutoSize, WithMapping, W
             'Contract signing',
         ];
     }
+
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class    => function(AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->getStyle('A1:L1')->applyFromArray([
-                    'font'=> ['bold'=>true]
+                    'font' => ['bold' => true],
                 ]);
             },
         ];

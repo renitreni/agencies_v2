@@ -32,10 +32,10 @@ class CasesLivewire extends Component
     public function render()
     {
         $this->fraList = ForeignAgency::query()
-                                      ->select(['id', 'agency_name'])
-                                      ->where('agency_id', $this->pra)
-                                      ->get()
-                                      ->toArray();
+            ->select(['id', 'agency_name'])
+            ->where('agency_id', $this->pra)
+            ->get()
+            ->toArray();
         if ($this->fraList == []) {
             $this->fra = '';
         }
@@ -45,19 +45,19 @@ class CasesLivewire extends Component
 
     public function edit($id)
     {
-        $this->detail   = Complains::query()->find($id)->toArray();
-        $this->pra      = $this->detail['agency_id'];
-        $this->fra      = $this->detail['foreign_agency_id'];
+        $this->detail = Complains::query()->find($id)->toArray();
+        $this->pra = $this->detail['agency_id'];
+        $this->fra = $this->detail['foreign_agency_id'];
         $complainStatus = ComplainStatus::query()->where('complain_id', $this->detail['id'])->first();
-        $this->status   = $complainStatus ? $complainStatus->status: '';
+        $this->status = $complainStatus ? $complainStatus->status : '';
     }
 
     public function assign()
     {
-        $complain                    = Complains::query()->find($this->detail['id']);
-        $complain->agency            = Agency::query()->findOrFail($this->pra)->name;
-        $complain->agency_id         = $this->pra;
-        $complain->foreign_agency    = ForeignAgency::query()->findOrFail($this->fra)->agency_name;
+        $complain = Complains::query()->find($this->detail['id']);
+        $complain->agency = Agency::query()->findOrFail($this->pra)->name;
+        $complain->agency_id = $this->pra;
+        $complain->foreign_agency = ForeignAgency::query()->findOrFail($this->fra)->agency_name;
         $complain->foreign_agency_id = $this->fra;
         $complain->save();
 

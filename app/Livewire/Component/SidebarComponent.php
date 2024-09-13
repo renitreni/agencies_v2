@@ -3,6 +3,7 @@
 namespace App\Livewire\Component;
 
 use App\Models\Deprive;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SidebarComponent extends Component
@@ -11,12 +12,11 @@ class SidebarComponent extends Component
 
     public function mount()
     {
-      // dd($logo = auth()->user()->agency()->pluck('logo_path')[0]);
         $this->deprive = Deprive::query()
-                                ->where('agency_id', auth()->user()->agency_id)
-                                ->toBase()
-                                ->pluck('feature')
-                                ->toArray();
+            ->where('agency_id', Auth::user()->agency_id)
+            ->toBase()
+            ->pluck('feature')
+            ->toArray();
     }
 
     public function render()

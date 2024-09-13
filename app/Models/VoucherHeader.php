@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VoucherHeader extends Model
 {
@@ -12,6 +11,6 @@ class VoucherHeader extends Model
 
     protected $fillable = [
         'agency_id',
-        'header_name'
+        'header_name',
     ];
 }

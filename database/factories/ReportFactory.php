@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Candidate;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +18,7 @@ class ReportFactory extends Factory
     public function definition()
     {
         $dated = $this->faker->dateTimeBetween('-2 months');
+
         return [
             'reportable_id' => Candidate::query()->inRandomOrder()->first()->id,
             'reportable_type' => Candidate::class,

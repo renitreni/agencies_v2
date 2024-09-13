@@ -1,1 +1,8 @@
 @import "~perfect-scrollbar/css/perfect-scrollbar.css";
+.input-group-text {
+    z-index: 0 !important;
+}
+
+.sidenav {
+    z-index: 0 !important;
+}

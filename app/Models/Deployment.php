@@ -16,6 +16,6 @@ class Deployment extends Model
         'contract_signing',
         'type',
         'age',
-        'ticket_deployment'
+        'ticket_deployment',
     ];
 }

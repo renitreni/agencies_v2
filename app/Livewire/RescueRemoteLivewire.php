@@ -30,23 +30,23 @@ class RescueRemoteLivewire extends Component
         ]);
 
         $this->candidate = Candidate::query()
-                                    ->selectRaw('candidates.*, v.status')
-                                    ->where('code', $this->code)
-                                    ->join('vouchers as v', 'v.id', '=', 'candidates.voucher_id')
-                                    ->first()
-                                    ->toArray();
+            ->selectRaw('candidates.*, v.status')
+            ->where('code', $this->code)
+            ->join('vouchers as v', 'v.id', '=', 'candidates.voucher_id')
+            ->first()
+            ->toArray();
     }
 
     public function rescue()
     {
         $emails = Participants::all()->pluck('email')->toArray();
         Mail::send(new RescueMailNotifier($emails));
-        event(new AlertSystemEvent());
+        event(new AlertSystemEvent);
         Rescue::query()->updateOrCreate(['ip_address' => request()->ip()], [
             'candidate_id' => $this->candidate['id'],
             'ip_address' => request()->ip(),
             'actual_latitude' => $this->form['actual_latitude'],
-            'actual_longitude' => $this->form['actual_longitude']
+            'actual_longitude' => $this->form['actual_longitude'],
         ]);
 
         $this->dispatch('callToaster', ['message' => 'Alert has been submitted!']);
@@ -58,6 +58,7 @@ class RescueRemoteLivewire extends Component
             'code' => 'required|exists:candidates,code',
         ]);
         $candidate = Candidate::query()->selectRaw('agency_id')->where('code', $this->code)->first();
+
         return redirect()->to(route('complaint-form-livewire', ['agencyId' => $candidate->agency_id]));
     }
 }

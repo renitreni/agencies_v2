@@ -11,8 +11,8 @@ class ForeignAgency extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable =[
+    protected $fillable = [
         'agency_id',
-        'agency_name'
+        'agency_name',
     ];
 }

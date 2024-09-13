@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Candidate;
-use Gridjs\ApplicantTableGridjs;
 use Livewire\Component;
 
 class ApplicantsLivewire extends Component
@@ -37,13 +36,13 @@ class ApplicantsLivewire extends Component
     public function addStatus()
     {
         $this->validate([
-            'status' => 'required|max:50'
+            'status' => 'required|max:50',
         ]);
 
         $candidate = Candidate::query()->find($this->details['id']);
         $candidate->attachTag($this->status);
 
-        $this->status  = '';
+        $this->status = '';
         $this->details = Candidate::query()->where('id', $this->details['id'])->with(['tags'])->get()[0]->toArray();
         $this->dispatch('tableApplicantRender');
     }

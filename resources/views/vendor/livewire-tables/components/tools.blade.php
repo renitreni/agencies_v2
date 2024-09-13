@@ -1,15 +1,8 @@
-@aware(['component'])
+@aware(['component','isTailwind','isBootstrap'])
 
-@php
-    $theme = $component->getTheme();
-@endphp
-
-@if ($theme === 'tailwind')
-    <div class="flex-col">
-        {{ $slot }}
-    </div>
-@elseif ($theme === 'bootstrap-4' || $theme === 'bootstrap-5')
-    <div class="d-flex flex-column">
-        {{ $slot }}
-    </div>
-@endif
+<div @class([
+    'flex-col' => $isTailwind,
+    'd-flex flex-column ' => ($isBootstrap),
+])>
+    {{ $slot }}
+</div>

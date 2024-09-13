@@ -29,7 +29,7 @@
                     <a href="javascript:;" class="nav-link text-body p-0 d-flex flex-row" id="dropdownMenuButton"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-circle cursor-pointer me-2 my-auto" style="color: #59F30D"></i>
-                        <span class="font-weight-bold my-auto d-none d-xl-block">{{ auth()->user()->email }}</span>
+                        <span class="font-weight-bold my-auto d-none d-xl-block">{{Auth::user()->email }}</span>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end px-2 py-1 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">

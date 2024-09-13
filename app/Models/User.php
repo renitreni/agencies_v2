@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public static function noInfoIds()
     {
-        return (new static())->newQuery()
+        return (new static)->newQuery()
             ->selectRaw('users.id')
             ->leftJoin('information as inf', 'inf.user_id', '=', 'users.id')
             ->whereNull('inf.user_id')
@@ -69,12 +69,12 @@ class User extends Authenticatable
 
     public static function getEmployersIds()
     {
-        return (new static())->newQuery()->where('role', 3)->pluck('id');
+        return (new static)->newQuery()->where('role', 3)->pluck('id');
     }
 
     public static function getAffiliateIds()
     {
-        return (new static())->newQuery()->where('role', 5)->pluck('id');
+        return (new static)->newQuery()->where('role', 5)->pluck('id');
     }
 
     public function employee()
@@ -94,7 +94,7 @@ class User extends Authenticatable
 
     public function password(): Attribute
     {
-        return Attribute::make(set: fn($value) => bcrypt($value));
+        return Attribute::make(set: fn ($value) => bcrypt($value));
     }
 
     public function tableQuery()

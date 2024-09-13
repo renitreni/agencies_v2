@@ -10,7 +10,7 @@ class CalculateTotalByVoucher
     {
         $model = Voucher::find($voucherId);
         $total = 0;
-        
+
         foreach ($model->toArray() as $key => $item) {
             preg_match_all('/\(([\d\,\.]+)/', $item, $matches);
             foreach ($matches[1] as $amount) {

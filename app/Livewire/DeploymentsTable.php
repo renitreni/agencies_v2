@@ -4,20 +4,22 @@ namespace App\Livewire;
 
 use App\Models\Voucher;
 use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class DeploymentsTable extends DataTableComponent
 {
     protected $listeners = ['refreshDatatable' => '$refresh', 'outsideFilter'];
 
     public $params;
+
     public ?string $defaultSortColumn = 'created_at';
 
     public function configure(): void
     {
-          $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id');
     }
+
     public function outsideFilter($data)
     {
         $this->params = $data;
@@ -41,45 +43,45 @@ class DeploymentsTable extends DataTableComponent
             ->leftJoin('deployments', 'deployments.voucher_id', '=', 'vouchers.id')
             ->when(isset($this->params['account']), function ($q) {
                 $q->where('vouchers.created_by', $this->params['account']);
-            }, fn ($q) => $q->where('vouchers.created_by', auth()->id()));
+            }, fn ($q) => $q->where('vouchers.created_by', Auth::id()));
     }
 
     public function columns(): array
     {
         return [
-            Column::make("ID", "id")
+            Column::make('ID', 'id')
                 ->format(function ($value, $row, $data) {
                     return view('buttons.deployment-action', ['id' => $value]);
                 })
                 ->asHtml(),
-            Column::make("Applicant", "name")
+            Column::make('Applicant', 'name')
                 ->searchable()
                 ->sortable(),
-            Column::make("Source", "source")
+            Column::make('Source', 'source')
                 ->searchable()
                 ->sortable(),
-            Column::make("FRA", "agency_name")
+            Column::make('FRA', 'agency_name')
                 ->searchable()
                 ->sortable(),
-            Column::make("Source", "status")
+            Column::make('Source', 'status')
                 ->searchable()
                 ->sortable(),
-            Column::make("Age", "deployments.age")
+            Column::make('Age', 'deployments.age')
                 ->searchable()
                 ->sortable(),
-            Column::make("Ticket", "ticket")
+            Column::make('Ticket', 'ticket')
                 ->searchable()
                 ->sortable(),
-            Column::make("Deployment Date", "status_date")
+            Column::make('Deployment Date', 'status_date')
                 ->sortable(),
-            Column::make("Type", "deployments.type")
+            Column::make('Type', 'deployments.type')
                 ->searchable()
                 ->sortable(),
-            Column::make("Ppt", "deployments.ppt")
+            Column::make('Ppt', 'deployments.ppt')
                 ->sortable(),
-            Column::make("Fit to Work", "deployments.fit")
+            Column::make('Fit to Work', 'deployments.fit')
                 ->sortable(),
-            Column::make("Contract signing", "deployments.contract_signing")
+            Column::make('Contract signing', 'deployments.contract_signing')
                 ->sortable(),
         ];
     }

@@ -9,7 +9,6 @@ use App\Models\ForeignAgency;
 use App\Models\JobOrder;
 use App\Models\Report;
 use App\Models\Voucher;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class DevEnvironmentSeeder extends Seeder
@@ -34,7 +33,7 @@ class DevEnvironmentSeeder extends Seeder
                 'agency_id' => $value->id,
                 'agency' => $value->name,
                 'foreign_agency' => $foreignAgency->agency_name,
-                'foreign_agency_id' => $foreignAgency->id
+                'foreign_agency_id' => $foreignAgency->id,
             ]);
         });
 
@@ -44,16 +43,16 @@ class DevEnvironmentSeeder extends Seeder
 
             // Assign random FRA to Job order with corresponding voucher id
             JobOrder::query()
-                    ->create([
-                        'voucher_id' => $value->id,
-                        'foreign_agency_id' => $fra->id,
-                    ]);
+                ->create([
+                    'voucher_id' => $value->id,
+                    'foreign_agency_id' => $fra->id,
+                ]);
 
             // Assign a voucher id to candidate
             $candidate = Candidate::query()
-                                  ->where('agency_id', $value->agency_id)
-                                  ->inRandomOrder()
-                                  ->first();
+                ->where('agency_id', $value->agency_id)
+                ->inRandomOrder()
+                ->first();
 
             $candidate->voucher_id = $value->id;
             $candidate->save();
@@ -62,9 +61,9 @@ class DevEnvironmentSeeder extends Seeder
         Voucher::query()->each(function ($value) {
             // Assign a voucher id to candidate
             $candidate = Candidate::query()
-                                  ->where('agency_id', $value->agency_id)
-                                  ->inRandomOrder()
-                                  ->first();
+                ->where('agency_id', $value->agency_id)
+                ->inRandomOrder()
+                ->first();
 
             $candidate->voucher_id = $value->id;
             $candidate->save();

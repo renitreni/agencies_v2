@@ -9,9 +9,9 @@ class JobOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'voucher_id',
         'foreign_agency_id',
-        'agency_id'
+        'agency_id',
     ];
 }

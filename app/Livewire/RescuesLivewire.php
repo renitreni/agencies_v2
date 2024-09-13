@@ -42,7 +42,7 @@ class RescuesLivewire extends Component
 
     public function submitFeedback()
     {
-        $this->respond['inserted_by'] = auth()->id();
+        $this->respond['inserted_by'] = Auth::id();
 
         Responds::query()->updateOrCreate(['rescue_id' => $this->respond['rescue_id']], $this->respond);
         $this->dispatch('callToaster', ['message' => 'Feedback has been submitted!']);

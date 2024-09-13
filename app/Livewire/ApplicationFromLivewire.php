@@ -46,14 +46,14 @@ class ApplicationFromLivewire extends Component
                 $this->cand_id = decrypt($this->candidate_id);
                 $this->details = Candidate::query()->find($this->cand_id)->toArray();
 
-                $this->children      = Children::query()->where('candidate_id',
-                        $this->cand_id)->get()?->toArray() ?? [];
-                $this->workHistory   = EmploymentHistory::query()->where('candidate_id',
-                        $this->cand_id)->get()?->toArray() ?? [];
+                $this->children = Children::query()->where('candidate_id',
+                    $this->cand_id)->get()?->toArray() ?? [];
+                $this->workHistory = EmploymentHistory::query()->where('candidate_id',
+                    $this->cand_id)->get()?->toArray() ?? [];
                 $this->languageLevel = LanguageLevel::query()->where('candidate_id',
-                        $this->cand_id)->get()?->toArray() ?? [];
-                $this->skills        = Skill::query()->where('candidate_id',
-                        $this->cand_id)->get()?->toArray() ?? [];
+                    $this->cand_id)->get()?->toArray() ?? [];
+                $this->skills = Skill::query()->where('candidate_id',
+                    $this->cand_id)->get()?->toArray() ?? [];
             }
         } else {
             $this->generateCode();
@@ -79,10 +79,10 @@ class ApplicationFromLivewire extends Component
     {
         $this->children[] = [
             'candidate_id' => null,
-            'fullname'     => "",
-            'gender'       => "",
-            'age'          => "",
-            'birthdate'    => null,
+            'fullname' => '',
+            'gender' => '',
+            'age' => '',
+            'birthdate' => null,
         ];
     }
 
@@ -95,9 +95,9 @@ class ApplicationFromLivewire extends Component
     {
         $this->workHistory[] = [
             'candidate_id' => null,
-            'country'      => "",
-            'position'     => "",
-            'year'         => "",
+            'country' => '',
+            'position' => '',
+            'year' => '',
         ];
     }
 
@@ -110,8 +110,8 @@ class ApplicationFromLivewire extends Component
     {
         $this->languageLevel[] = [
             'candidate_id' => null,
-            'language'     => "",
-            'level'        => "",
+            'language' => '',
+            'level' => '',
         ];
     }
 
@@ -124,8 +124,8 @@ class ApplicationFromLivewire extends Component
     {
         $this->skills[] = [
             'candidate_id' => null,
-            'remarks'      => "",
-            'skill'        => "",
+            'remarks' => '',
+            'skill' => '',
         ];
     }
 
@@ -143,7 +143,7 @@ class ApplicationFromLivewire extends Component
             $this->details['picfull'] = $this->picfull->store('applicant', 'public');
         }
 
-        $this->details['agency_id'] = auth()->user()->agency_id;
+        $this->details['agency_id'] = Auth::user()->agency_id;
 
         $id = Candidate::query()->insertGetId($this->details);
 

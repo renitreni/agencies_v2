@@ -13,10 +13,10 @@ class Rescue extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'candidate_id',
-      'ip_address',
-      'actual_latitude',
-      'actual_longitude'
+        'candidate_id',
+        'ip_address',
+        'actual_latitude',
+        'actual_longitude',
     ];
 
     public function candidate(): HasOne

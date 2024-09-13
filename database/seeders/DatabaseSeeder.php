@@ -2,14 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Agent;
 use App\Models\Agency;
 use App\Models\Candidate;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Information;
-use App\Models\OptionList;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,28 +21,28 @@ class DatabaseSeeder extends Seeder
 
         // admin@tabang.com agency@tabang.com employer@tabang.com gov@tabang.com
         User::query()->insert([
-            'email'             => 'admin@tabang.com',
-            'role'              => 1,
+            'email' => 'admin@tabang.com',
+            'role' => 1,
             'email_verified_at' => now(),
-            'password'          => bcrypt('tabangpass'), // password
-            'remember_token'    => Str::random(10),
+            'password' => bcrypt('tabangpass'), // password
+            'remember_token' => Str::random(10),
         ]);
         User::query()->insert([
-            'email'             => 'test@example.com',
-            'role'              => 2,
-            'agency_id'         => 1,
+            'email' => 'test@example.com',
+            'role' => 2,
+            'agency_id' => 1,
             'email_verified_at' => now(),
-            'password'          => bcrypt('password'), // password
-            'remember_token'    => Str::random(10),
+            'password' => bcrypt('password'), // password
+            'remember_token' => Str::random(10),
         ]);
         User::query()->insert([
-            'email'             => 'gov@tabang.com',
-            'role'              => 4,
+            'email' => 'gov@tabang.com',
+            'role' => 4,
             'email_verified_at' => now(),
-            'password'          => bcrypt('tabangpass'), // password
-            'remember_token'    => Str::random(10),
+            'password' => bcrypt('tabangpass'), // password
+            'remember_token' => Str::random(10),
         ]);
 
-       // Candidate::factory()->count(1000)->create();
+        // Candidate::factory()->count(1000)->create();
     }
 }

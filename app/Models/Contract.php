@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Contract extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "details",
-        "serial_no",
-        "name",
-        "status",
-        "agency_id",
-        "requisite_id",
-        "approved_by",
+        'details',
+        'serial_no',
+        'name',
+        'status',
+        'agency_id',
+        'requisite_id',
+        'approved_by',
     ];
 
     public function agency()

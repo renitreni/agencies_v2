@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\OptionList;
-use Illuminate\Support\Str;
 use App\Models\Information;
+use App\Models\OptionList;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OptionListSeeder extends Seeder
 {
@@ -19,11 +19,11 @@ class OptionListSeeder extends Seeder
     public function run()
     {
         User::query()->insert([
-            'email'             => 'admin@tabang.com',
-            'role'              => 1,
+            'email' => 'admin@tabang.com',
+            'role' => 1,
             'email_verified_at' => now(),
-            'password'          => bcrypt('tabangpass'), // password
-            'remember_token'    => Str::random(10),
+            'password' => bcrypt('tabangpass'), // password
+            'remember_token' => Str::random(10),
         ]);
 
         Information::factory()->state(['user_id' => 1])->create();

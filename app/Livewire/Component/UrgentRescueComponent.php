@@ -17,10 +17,10 @@ class UrgentRescueComponent extends Component
     {
         $this->dispatch('refreshDatatable');
         $this->rescueCount = Rescue::query()
-                                   ->leftJoin('responds as rs', 'rs.rescue_id', '=', 'rescues.id')
-                                   ->whereNull('rs.rescue_id')
-                                   ->orWhere('rs.status', '<>', 'resolved')
-                                   ->count();
+            ->leftJoin('responds as rs', 'rs.rescue_id', '=', 'rescues.id')
+            ->whereNull('rs.rescue_id')
+            ->orWhere('rs.status', '<>', 'resolved')
+            ->count();
 
         return view('livewire.component.urgent-rescue-component');
     }
@@ -28,11 +28,11 @@ class UrgentRescueComponent extends Component
     public function showRecues()
     {
         $this->recues = Rescue::query()
-                              ->leftJoin('responds as rs', 'rs.rescue_id', '=', 'rescues.id')
-                              ->whereNull('rs.rescue_id')
-                              ->orWhere('rs.status', '<>', 'resolved')
-                              ->with(['candidate'])
-                              ->get()
-                              ->toArray();
+            ->leftJoin('responds as rs', 'rs.rescue_id', '=', 'rescues.id')
+            ->whereNull('rs.rescue_id')
+            ->orWhere('rs.status', '<>', 'resolved')
+            ->with(['candidate'])
+            ->get()
+            ->toArray();
     }
 }

@@ -38,17 +38,17 @@ class DepriveLivewire extends Component
     public function searchAgency()
     {
         $this->agencies = Agency::query()
-                                ->select(['name', 'id'])
-                                ->where('name', 'LIKE', "%{$this->keyword}%")
-                                ->get()
-                                ->toArray();
+            ->select(['name', 'id'])
+            ->where('name', 'LIKE', "%{$this->keyword}%")
+            ->get()
+            ->toArray();
     }
 
     public function showDeprive($id)
     {
-        $this->keyword     = '';
+        $this->keyword = '';
         $this->agencyModel = Agency::query()->find($id)->toArray();
-        $this->deprived    = Deprive::query()->where('agency_id', $id)->get()->toArray();
+        $this->deprived = Deprive::query()->where('agency_id', $id)->get()->toArray();
     }
 
     public function addDeprived()
@@ -59,7 +59,7 @@ class DepriveLivewire extends Component
                 'agency_id' => $this->agencyModel['id'],
             ]);
         $this->deprived = Deprive::query()->where('agency_id', $this->agencyModel['id'])->get()->toArray();
-        $this->route    = '';
+        $this->route = '';
     }
 
     public function deleteDeprive($id)

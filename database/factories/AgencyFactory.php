@@ -22,11 +22,11 @@ class AgencyFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => $this->faker->company,
-            'address'    => $this->faker->address,
-            'logo_path'  => 'https://placeholder.com/',
-            'poea'       => $this->faker->bankAccountNumber,
-            'status'     => 'active',
+            'name' => $this->faker->company,
+            'address' => $this->faker->address,
+            'logo_path' => 'https://placeholder.com/',
+            'poea' => $this->faker->bankAccountNumber,
+            'status' => 'active',
             'created_by' => 'seeder',
         ];
     }

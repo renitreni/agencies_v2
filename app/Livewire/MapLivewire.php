@@ -7,6 +7,7 @@ use Livewire\Component;
 class MapLivewire extends Component
 {
     public string $latitude = '';
+
     public string $longitude = '';
 
     protected $queryString = ['latitude', 'longitude'];

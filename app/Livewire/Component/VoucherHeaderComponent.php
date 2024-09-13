@@ -17,9 +17,9 @@ class VoucherHeaderComponent extends Component
     public function render(): Factory|View|Application
     {
         $this->headers = VoucherHeader::query()
-                                      ->where('agency_id', auth()->user()->agency_id)
-                                      ->get()
-                                      ->toArray();
+            ->where('agency_id', Auth::user()->agency_id)
+            ->get()
+            ->toArray();
 
         return view('livewire.component.voucher-header-component');
     }
@@ -27,7 +27,7 @@ class VoucherHeaderComponent extends Component
     public function store()
     {
         VoucherHeader::query()->create([
-            'agency_id' => auth()->user()->agency_id,
+            'agency_id' => Auth::user()->agency_id,
             'header_name' => $this->keyword,
         ]);
         $this->keyword = '';

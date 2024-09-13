@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Information extends Model
 {
-    public $fillable =[
+    public $fillable = [
         'user_id',
         'national_id',
         'name',

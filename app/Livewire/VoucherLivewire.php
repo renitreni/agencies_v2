@@ -13,6 +13,8 @@ use App\Models\VoucherStatus;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class VoucherLivewire extends Component
@@ -41,19 +43,19 @@ class VoucherLivewire extends Component
 
     public function mount()
     {
-        $this->params['account'] = auth()->id();
+        $this->params['account'] = Auth::id();
 
         $this->accounts = User::query()
-                              ->select(['id', 'email'])
-                              ->where('agency_id', auth()->user()->agency_id)
-                              ->get()
-                              ->toArray();
+            ->select(['id', 'email'])
+            ->where('agency_id', Auth::user()->agency_id)
+            ->get()
+            ->toArray();
 
         $this->fra = ForeignAgency::query()
-                                  ->select(['id', 'agency_name'])
-                                  ->where('agency_id', auth()->user()->agency_id)
-                                  ->get()
-                                  ->toArray();
+            ->select(['id', 'agency_name'])
+            ->where('agency_id', Auth::user()->agency_id)
+            ->get()
+            ->toArray();
     }
 
     public function render(): Factory|View|Application
@@ -61,12 +63,12 @@ class VoucherLivewire extends Component
         $this->saveExpenses();
         if (isset($this->details['id'])) {
             $this->expenses = VoucherExpense::query()
-                                            ->where('voucher_id', $this->details['id'])
-                                            ->get()
-                                            ->toArray();
+                ->where('voucher_id', $this->details['id'])
+                ->get()
+                ->toArray();
         }
 
-        $this->voucherHeader = VoucherHeader::query()->where('agency_id', auth()->user()->agency_id)->get()->toArray();
+        $this->voucherHeader = VoucherHeader::query()->where('agency_id', Auth::user()->agency_id)->get()->toArray();
 
         return view('livewire.vouchers');
     }
@@ -83,14 +85,15 @@ class VoucherLivewire extends Component
 
     public function store()
     {
-        $params = array_merge($this->details, ['created_by' => auth()->id(), 'agency_id' => auth()->user()->agency_id]);
+        $params = array_merge($this->details, ['created_by' => Auth::id(), 'agency_id' => Auth::user()->agency_id]);
         $object = Voucher::updateOrCreate(['id' => $this->details['id'] ?? null], $params);
 
         CalculateTotalByVoucher::handle($object->id);
-        
-        $this->emit('callToaster', [
+
+        $this->dispatch('callToaster', [
             'message' => isset($this->details['id']) ? 'Voucher has been updated!' : 'New Voucher has been Added!',
         ]);
+        
         $this->details = [];
     }
 
@@ -109,34 +112,33 @@ class VoucherLivewire extends Component
             'voucherStatus.status.required' => 'Status is required.',
         ]);
 
-        $voucher         = Voucher::find($this->details['id']);
+        $voucher = Voucher::find($this->details['id']);
         $voucher->status = $this->voucherStatus['status'];
         $voucher->save();
 
         VoucherStatus::query()
-                     ->updateOrCreate(
-                         ['voucher_id' => $this->details['id']],
-                         $this->voucherStatus
-                     );
+            ->updateOrCreate(
+                ['voucher_id' => $this->details['id']],
+                $this->voucherStatus
+            );
 
         $this->dispatch('callToaster', ['message' => 'Voucher Status Updated!']);
     }
 
+    #[On('editVoucher')]
     public function edit($id)
     {
-        $this->details       = Voucher::query()->find($id)->toArray()[0];
-        $this->voucherStatus = VoucherStatus::query()->where('voucher_id', $id['id'])->first()?->toArray() ?? [];
+        $this->details = Voucher::query()->find($id)->toArray();
+        $this->voucherStatus = VoucherStatus::query()->where('voucher_id',$id)->first()?->toArray() ?? [];
+        $this->js('$("#voucherEditModal").modal("show")');
     }
 
-    /**
-     * @param $data
-     */
     public function editJobOrder($data)
     {
-        $this->details  = Voucher::query()->find($data['id'])->toArray();
+        $this->details = Voucher::query()->find($data['id'])->toArray();
         $this->jobOrder = JobOrder::query()
-                                  ->where('voucher_id', $data['id'])
-                                  ->first()?->toArray() ?? [];
+            ->where('voucher_id', $data['id'])
+            ->first()?->toArray() ?? [];
     }
 
     public function editExpenses($data)
@@ -147,10 +149,10 @@ class VoucherLivewire extends Component
     public function jobOrderUpdate()
     {
         JobOrder::query()
-                ->updateOrCreate(
-                    ['voucher_id' => $this->details['id']],
-                    $this->jobOrder
-                );
+            ->updateOrCreate(
+                ['voucher_id' => $this->details['id']],
+                $this->jobOrder
+            );
 
         $this->dispatch('callToaster', ['message' => 'Voucher Status Updated!']);
     }
@@ -158,13 +160,13 @@ class VoucherLivewire extends Component
     public function addHeader()
     {
         VoucherExpense::query()
-                      ->create([
-                          'voucher_id' => $this->details['id'],
-                          'header_name' => '',
-                          'expense_date' => now()->format('Y-m-d'),
-                          'expense' => '',
-                          'amount' => 0,
-                      ]);
+            ->create([
+                'voucher_id' => $this->details['id'],
+                'header_name' => '',
+                'expense_date' => now()->format('Y-m-d'),
+                'expense' => '',
+                'amount' => 0,
+            ]);
     }
 
     public function removeExpenses($id)
@@ -176,13 +178,13 @@ class VoucherLivewire extends Component
     {
         foreach ($this->expenses as $item) {
             VoucherExpense::query()
-                          ->where('id', $item['id'])
-                          ->update([
-                              "header_name" => $item["header_name"],
-                              "expense_date" => $item["expense_date"],
-                              "expense" => $item["expense"],
-                              "amount" => $item["amount"],
-                          ]);
+                ->where('id', $item['id'])
+                ->update([
+                    'header_name' => $item['header_name'],
+                    'expense_date' => $item['expense_date'],
+                    'expense' => $item['expense'],
+                    'amount' => $item['amount'],
+                ]);
         }
 
         $this->dispatch('refreshDatatable');

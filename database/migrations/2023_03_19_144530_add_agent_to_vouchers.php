@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('vouchers', function (Blueprint $table) {
             $table->string('agent')->nullable();
+            $table->string('email')->nullable();
+            $table->string('agency_name')->nullable();
         });
     }
 

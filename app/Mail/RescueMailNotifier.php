@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -31,7 +30,7 @@ class RescueMailNotifier extends Mailable
     public function build()
     {
         return $this->cc([])
-                    ->bcc(['yaramayservices@gmail.com'])
-                    ->to($this->recipients)->subject('Tabang System')->markdown('emails.rescue-mail');
+            ->bcc(['yaramayservices@gmail.com'])
+            ->to($this->recipients)->subject('Tabang System')->markdown('emails.rescue-mail');
     }
 }

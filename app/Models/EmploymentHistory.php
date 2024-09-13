@@ -10,10 +10,10 @@ class EmploymentHistory extends Model
     use HasFactory;
 
     protected $fillable = [
-        "candidate_id",
-        "country",
-        "position",
-        "year",
-        "company",
+        'candidate_id',
+        'country',
+        'position',
+        'year',
+        'company',
     ];
 }

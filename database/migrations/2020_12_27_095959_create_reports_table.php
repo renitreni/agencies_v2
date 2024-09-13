@@ -9,6 +9,7 @@ class CreateReportsTable extends Migration
     /**
      * Run the migrations.
      * php artisan migrate:refresh --path=database/migrations/2020_12_27_095959_create_reports_table.php && php artisan migrate
+     *
      * @return void
      */
     public function up()

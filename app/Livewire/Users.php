@@ -29,17 +29,17 @@ class Users extends Component
     {
         $this->validate([
             'details.agency_id' => 'required',
-            'details.name'      => 'required',
-            'details.role'      => 'required',
-            'details.email'     => 'required|email',
-            'details.password'  => 'required|confirmed',
+            'details.name' => 'required',
+            'details.role' => 'required',
+            'details.email' => 'required|email',
+            'details.password' => 'required|confirmed',
         ]);
 
         $information = Information::query()->create($this->details);
 
         $final = array_merge($this->details, [
             'information_id' => $information['id'],
-            'created_by'     => auth()->id(),
+            'created_by' => Auth::id(),
         ]);
         User::query()->create($final);
 
@@ -56,37 +56,37 @@ class Users extends Component
     {
         $this->validate([
             'details.agency_id' => 'required',
-            'details.name'      => 'required',
-            'details.role'      => 'required',
-            'details.email'     => 'required|email',
+            'details.name' => 'required',
+            'details.role' => 'required',
+            'details.email' => 'required|email',
         ]);
 
         Information::query()
             ->where('id', $this->details['id'])
             ->update([
-            'name' => $this->details['name'],
-            'email' => $this->details['email'],
-            'created_by' => auth()->id(),
+                'name' => $this->details['name'],
+                'email' => $this->details['email'],
+                'created_by' => Auth::id(),
 
-//            'national_id' => $this->details['national_id'],
-//            'tin' => $this->details['tin'],
-//            'address_line_1' => $this->details['address_line_1'],
-//            'address_line_2' => $this->details['address_line_2'],
-//            'city' => $this->details['city'],
-//            'zip_code' => $this->details['zip_code'],
-//            'contact_name' => $this->details['contact_name'],
-//            'phone' => $this->details['phone'],
-//            'fax' => $this->details['fax'],
-//            'status' => $this->details['status'],
-//            'type' => $this->details['type'],
-//            'poea' => $this->details['poea'],
-        ]);
+                //            'national_id' => $this->details['national_id'],
+                //            'tin' => $this->details['tin'],
+                //            'address_line_1' => $this->details['address_line_1'],
+                //            'address_line_2' => $this->details['address_line_2'],
+                //            'city' => $this->details['city'],
+                //            'zip_code' => $this->details['zip_code'],
+                //            'contact_name' => $this->details['contact_name'],
+                //            'phone' => $this->details['phone'],
+                //            'fax' => $this->details['fax'],
+                //            'status' => $this->details['status'],
+                //            'type' => $this->details['type'],
+                //            'poea' => $this->details['poea'],
+            ]);
 
         User::query()->where('id', $this->details['id'])->update([
-            'email'=> $this->details['email'],
-            'role'=> $this->details['role'],
-            'agency_id'=> $this->details['agency_id'],
-            'information_id'=> $this->details['id'],
+            'email' => $this->details['email'],
+            'role' => $this->details['role'],
+            'agency_id' => $this->details['agency_id'],
+            'information_id' => $this->details['id'],
         ]);
 
         $this->details = [];

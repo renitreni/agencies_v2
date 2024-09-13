@@ -15,8 +15,9 @@ class CandidateStatusResource extends JsonResource
     public function toArray($request)
     {
         self::withoutWrapping();
+
         return [
-            'status' => $this->tags
+            'status' => $this->tags,
         ];
     }
 }

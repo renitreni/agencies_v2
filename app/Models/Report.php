@@ -27,7 +27,6 @@ class Report extends Model
 
     /**
      * Get the parent reportable model (candidate or agency).
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function reportable(): MorphTo
     {

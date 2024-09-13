@@ -11,6 +11,6 @@ class ComplainStatus extends Model
 
     protected $fillable = [
         'complain_id',
-        'status'
+        'status',
     ];
 }

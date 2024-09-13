@@ -2,9 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Deployment;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Deployment;
 
 class DeploymentLivewire extends Component
 {
@@ -18,11 +18,11 @@ class DeploymentLivewire extends Component
 
     public function mount()
     {
-        $this->params['account'] = auth()->id();
+        $this->params['account'] = Auth::id();
 
         $this->accounts = User::query()
             ->select(['id', 'email'])
-            ->where('agency_id', auth()->user()->agency_id)
+            ->where('agency_id', Auth::user()->agency_id)
             ->get()
             ->toArray();
         session()->put('export', $this->params);

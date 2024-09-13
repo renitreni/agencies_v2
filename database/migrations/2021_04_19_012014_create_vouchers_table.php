@@ -9,6 +9,7 @@ class CreateVouchersTable extends Migration
     /**
      * Run the migrations.
      * php artisan migrate:reset --path="./database/migrations/2021_04_19_012014_create_vouchers_table.php"
+     *
      * @return void
      */
     public function up()

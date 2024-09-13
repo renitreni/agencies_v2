@@ -2,22 +2,19 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Spatie\Tags\HasTags;
-use Laravel\Scout\Searchable;
-use Illuminate\Database\Eloquent\Model;
-use Database\Factories\CandidateFactory;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+use Spatie\Tags\HasTags;
 
 /**
  * php artisan scout:import 'App\Models\Candidate'
  */
 class Candidate extends Model
 {
-    use Searchable;
     use HasFactory;
     use HasTags;
+    use Searchable;
 
     protected $fillable = [
         'address',
@@ -135,12 +132,12 @@ class Candidate extends Model
 
     public static function belongsToAgency($id, $agency_id)
     {
-        return (new static())->where('id', $id)->where('agency_id', $agency_id)->count() > 0;
+        return (new static)->where('id', $id)->where('agency_id', $agency_id)->count() > 0;
     }
 
     public static function belongsToEmployer($id, $agency_id)
     {
-        return (new static())->where('id', $id)->where('employer_id', $agency_id)->count() > 0;
+        return (new static)->where('id', $id)->where('employer_id', $agency_id)->count() > 0;
     }
 
     public function report()

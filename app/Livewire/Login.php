@@ -9,13 +9,18 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public ?string $email       = '';
-    public ?string $password    = '';
-    public ?string $agency      = '';
-    public ?string $photo_link  = '';
-    protected      $queryString = ['agency'];
-    protected      $rules       = [
-        'email'    => 'required|email|max:50',
+    public ?string $email = '';
+
+    public ?string $password = '';
+
+    public ?string $agency = '';
+
+    public ?string $photo_link = '';
+
+    protected $queryString = ['agency'];
+
+    protected $rules = [
+        'email' => 'required|email|max:50',
         'password' => 'required',
     ];
 
@@ -41,12 +46,12 @@ class Login extends Component
     public function authenticate()
     {
         $this->validate([
-            'email' => 'required|exists:users,email'
+            'email' => 'required|exists:users,email',
         ]);
-        
+
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             Auth::loginUsingId(User::query()->where('email', $this->email)->first()->id);
-            
+
             redirect()->route('dashboard');
         }
     }

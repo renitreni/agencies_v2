@@ -30,7 +30,7 @@ class ApplicantDocsLivewire extends Component
     public function render()
     {
         return view('livewire.applicant-docs-livewire', [
-            'tableDocument' => app(DocumentTableGridjs::class)->make(route('docs.get'))
+            'tableDocument' => app(DocumentTableGridjs::class)->make(route('docs.get')),
         ]);
     }
 
@@ -48,7 +48,7 @@ class ApplicantDocsLivewire extends Component
             'filename' => $this->details['docu']->getClientOriginalName(),
             'path' => $path,
             'type' => ucwords($this->details['type']),
-            'created_by' => auth()->id()
+            'created_by' => Auth::id(),
         ]);
 
         $this->dispatch('uploadDocument', ['path' => $path]);

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('agencies', function (Blueprint $table){
+        Schema::table('agencies', function (Blueprint $table) {
             $table->index(['id']);
         });
     }

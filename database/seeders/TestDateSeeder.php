@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Information;
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Candidate;
+use App\Models\Information;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class TestDateSeeder extends Seeder
 {
@@ -25,14 +25,14 @@ class TestDateSeeder extends Seeder
 
         $employers = User::getEmployersIds();
         foreach ($employers as $key => $id) {
-            $user            = User::find($id);
+            $user = User::find($id);
             $user->agency_id = 2;
             $user->save();
         }
 
         $affiliate = User::getAffiliateIds();
         foreach ($affiliate as $key => $id) {
-            $user            = User::find($id);
+            $user = User::find($id);
             $user->agency_id = 2;
             $user->save();
         }

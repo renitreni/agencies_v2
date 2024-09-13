@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="{{ asset('theme/soft-ui/assets/css/nucleo-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/soft-ui/assets/css/nucleo-svg.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
-    <link id="pagestyle" rel="stylesheet"
-          href="{{ asset('theme/soft-ui/assets/css/soft-ui-dashboard.min.css?v=1.0.6') }}">
+    <link id="pagestyle" rel="stylesheet" href="{{ asset('theme/soft-ui/assets/css/soft-ui-dashboard.min.css?v=1.0.6') }}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
@@ -32,6 +31,8 @@
             Livewire.emit('refreshComponent')
         });
     </script>
+    
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
     @livewireStyles
     <style>
         .btn.dropdown-toggle.d-block.w-100 {
@@ -71,7 +72,6 @@
         }
 
     </style>
-
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <style>
@@ -143,6 +143,8 @@
 <!-- partial -->
 @livewireScripts
 <!--   Core JS Files   -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('vendor/rappasoft/livewire-tables/js/laravel-livewire-tables.min.js') }}"></script>
 <script src="{{ asset('vendor/gridjs/dist/gridjs.umd.js') }}"></script>
 <script src="{{ asset('theme/soft-ui/assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('theme/soft-ui/assets/js/core/bootstrap.min.js') }}"></script>
@@ -161,7 +163,6 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('theme/soft-ui/assets/js/soft-ui-dashboard.min.js') }}"></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @stack('scripts')
 </body>
 

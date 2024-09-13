@@ -14,36 +14,37 @@ class AgencyTable extends DataTableComponent
 
     public function configure(): void
     {
-          $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id');
     }
+
     public function columns(): array
     {
         return [
-            Column::make("Actions", "id")
-                ->format(fn($id) => view('buttons.actions',
+            Column::make('Actions', 'id')
+                ->format(fn ($id) => view('buttons.actions',
                     ['id' => $id, 'listener' => 'bindAgencyDetails', 'modal' => 'agencyEditModal']))
                 ->asHtml(),
-            Column::make("ID", "id")
+            Column::make('ID', 'id')
                 ->sortable(),
-            Column::make("Name", "name")
+            Column::make('Name', 'name')
                 ->sortable(),
-            Column::make("Address", "address")
+            Column::make('Address', 'address')
                 ->sortable(),
-            Column::make("Logo path", "logo_path")
-                ->format(fn($value) => '<img src="'.Storage::url($value).'" class="img-fluid" style="width: 12%;">')
+            Column::make('Logo path', 'logo_path')
+                ->format(fn ($value) => '<img src="'.Storage::url($value).'" class="img-fluid" style="width: 12%;">')
                 ->asHtml()
                 ->sortable(),
-            Column::make("Poea", "poea")
+            Column::make('Poea', 'poea')
                 ->sortable(),
-            Column::make("CR No.", "cr_no")
+            Column::make('CR No.', 'cr_no')
                 ->sortable(),
-            Column::make("Status", "status")
+            Column::make('Status', 'status')
                 ->sortable(),
-            Column::make("Owner name", "owner_name")
+            Column::make('Owner name', 'owner_name')
                 ->sortable(),
-            Column::make("Contact number", "contact_number")
+            Column::make('Contact number', 'contact_number')
                 ->sortable(),
-            Column::make("Created by", "users.email")
+            Column::make('Created by', 'users.email')
                 ->sortable(),
         ];
     }

@@ -35,13 +35,13 @@ class ComplainsFactory extends Factory
             'contact_number2' => $this->faker->phoneNumber,
             'address_abroad' => $this->faker->address,
             'employer_contact' => $this->faker->phoneNumber(),
-            'complaint'=> $this->faker->paragraph(5),
+            'complaint' => $this->faker->paragraph(5),
             'image1' => $this->faker->imageUrl(),
             'image2' => $this->faker->imageUrl(),
             'image3' => $this->faker->imageUrl(),
             'actual_latitude' => $this->faker->latitude(),
             'actual_longitude' => $this->faker->longitude(),
-            'created_at'=> $this->faker->dateTimeBetween('-1 years'),
+            'created_at' => $this->faker->dateTimeBetween('-1 years'),
         ];
     }
 }

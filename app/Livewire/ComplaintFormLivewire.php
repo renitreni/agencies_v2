@@ -30,11 +30,11 @@ class ComplaintFormLivewire extends Component
     public function render()
     {
         $this->fraList = ForeignAgency::query()
-                                      ->select(['id', 'agency_name'])
-                                      ->where('agency_id', $this->agency->id)
-                                      ->orderBy('agency_name')
-                                      ->get()
-                                      ->toArray();
+            ->select(['id', 'agency_name'])
+            ->where('agency_id', $this->agency->id)
+            ->orderBy('agency_name')
+            ->get()
+            ->toArray();
 
         return view('livewire.complaint-form-livewire')->layout('layouts.guest');
     }
@@ -64,7 +64,7 @@ class ComplaintFormLivewire extends Component
             $this->form['image3'] = $this->form['image3']->store('evidences', 'public');
         }
         if (isset($this->form['agency_id'])) {
-          $this->form['agency_id'] = Agency::query()->find($this->form['agency_id'])->name;
+            $this->form['agency_id'] = Agency::query()->find($this->form['agency_id'])->name;
         }
 
         $this->form['agency_id'] = $this->agency->id;

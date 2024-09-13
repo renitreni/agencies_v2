@@ -11,18 +11,20 @@ use Livewire\Component;
 
 class DashboardLivewire extends Component
 {
-    public int $totalVoucher   = 0;
-    public int $totalDeployed  = 0;
+    public int $totalVoucher = 0;
+
+    public int $totalDeployed = 0;
+
     public int $totalCandidate = 0;
 
     public function mount()
     {
-        $this->totalVoucher   = Voucher::query()->where('agency_id', auth()->user()->agency_id)->count();
-        $this->totalDeployed  = Voucher::query()
-                                       ->where('status', 'deployed')
-                                       ->where('agency_id', auth()->user()->agency_id)
-                                       ->count();
-        $this->totalCandidate = Candidate::query()->where('agency_id', auth()->user()->agency_id)->count();
+        $this->totalVoucher = Voucher::query()->where('agency_id', Auth::user()->agency_id)->count();
+        $this->totalDeployed = Voucher::query()
+            ->where('status', 'deployed')
+            ->where('agency_id', Auth::user()->agency_id)
+            ->count();
+        $this->totalCandidate = Candidate::query()->where('agency_id', Auth::user()->agency_id)->count();
     }
 
     public function render(): Factory|View|Application

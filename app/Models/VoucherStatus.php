@@ -13,6 +13,6 @@ class VoucherStatus extends Model
         'voucher_id',
         'status',
         'status_date',
-        'remarks'
+        'remarks',
     ];
 }

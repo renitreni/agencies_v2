@@ -2,12 +2,11 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Toaster extends Component
 {
-    protected $listeners = ['callToaster' => 'toast'];
-
     public $message = '';
 
     public function render()
@@ -15,11 +14,12 @@ class Toaster extends Component
         return view('livewire.toaster');
     }
 
-    public function toast($attribute)
+    #[On('callToaster')]
+    public function toast($detail)
     {
-        $this->dispatch('refreshDatatable');
-        $this->message = $attribute['message'];
-        $this->dispatch('toaster-js');
-        $this->dispatch('refreshDatatable');
+        $this->message = $detail['message'];
+        $this->js("$('.toast').toast('show')");
+        $this->js("$('.modal').modal('hide')");
+        $this->dispatch('pg:eventRefresh-default');
     }
 }

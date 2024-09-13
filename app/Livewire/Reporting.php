@@ -31,10 +31,10 @@ class Reporting extends Component
         ]);
 
         $this->candidate = Candidate::query()
-                                    ->where('code', $this->code)
-                                    ->join('vouchers as v', 'v.id', '=', 'candidates.voucher_id')
-                                    ->first()
-                                    ->toArray();
+            ->where('code', $this->code)
+            ->join('vouchers as v', 'v.id', '=', 'candidates.voucher_id')
+            ->first()
+            ->toArray();
 
         $this->latest_report = Candidate::find($this->candidate['id'])->report->first();
     }
@@ -42,7 +42,7 @@ class Reporting extends Component
     public function resetValues()
     {
         $this->candidate = [];
-        $this->remarks   = '';
+        $this->remarks = '';
     }
 
     public function submitReport()
@@ -57,7 +57,7 @@ class Reporting extends Component
         $candidate->report()->create([
             'salary_received' => $this->salary_received,
             'remarks' => $this->remarks,
-            'salary_date' => $this->salary_date
+            'salary_date' => $this->salary_date,
         ]);
 
         $this->dispatch('callToaster', ['message' => 'Report has been submitted!']);

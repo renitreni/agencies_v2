@@ -1,28 +1,28 @@
 <?php
 
-use App\Livewire\Login;
-use App\Livewire\Users;
-use App\Livewire\Reporting;
-use App\Livewire\MapLivewire;
-use App\Livewire\CasesLivewire;
-use Illuminate\Support\Facades\Auth;
-use App\Livewire\AgencyLivewire;
-use App\Livewire\ReportLivewire;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\DepriveLivewire;
-use App\Livewire\RescuesLivewire;
-use App\Livewire\VoucherLivewire;
-use App\Livewire\DashboardLivewire;
-use App\Livewire\VoucherV2Livewire;
-use App\Livewire\ApplicantsLivewire;
-use App\Livewire\RescueRemoteLivewire;
-use App\Livewire\ApplicantDocsLivewire;
-use App\Livewire\ComplaintFormLivewire;
-use App\Livewire\OFWMonitoringLivewire;
-use App\Livewire\ApplicationFromLivewire;
-use App\Http\Controllers\VouchersExportController;
 use App\Http\Controllers\DeploymentsExportController;
+use App\Http\Controllers\VouchersExportController;
+use App\Livewire\AgencyLivewire;
+use App\Livewire\ApplicantDocsLivewire;
+use App\Livewire\ApplicantsLivewire;
+use App\Livewire\ApplicationFromLivewire;
+use App\Livewire\CasesLivewire;
+use App\Livewire\ComplaintFormLivewire;
+use App\Livewire\DashboardLivewire;
 use App\Livewire\DeploymentLivewire;
+use App\Livewire\DepriveLivewire;
+use App\Livewire\Login;
+use App\Livewire\MapLivewire;
+use App\Livewire\OFWMonitoringLivewire;
+use App\Livewire\Reporting;
+use App\Livewire\ReportLivewire;
+use App\Livewire\RescueRemoteLivewire;
+use App\Livewire\RescuesLivewire;
+use App\Livewire\Users;
+use App\Livewire\VoucherLivewire;
+use App\Livewire\VoucherV2Livewire;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Route::get('/login', Login::class)->name('login');
 Route::post(
     '/logout',
     function () {
-        $agency = auth()->user()->agency_id;
+        $agency = Auth::user()->agency_id;
         Auth::logout();
 
         return redirect()->route('login', ['agency' => $agency]);

@@ -1,43 +1,29 @@
-@aware(['component', 'row', 'rowIndex'])
+@aware(['component', 'row', 'rowIndex', 'tableName', 'primaryKey','isTailwind','isBootstrap'])
 @props(['column', 'colIndex'])
 
 @php
-    $attributes = $attributes->merge(['wire:key' => 'cell-'.$rowIndex.'-'.$colIndex.'-'.$component->id]);
-    $theme = $component->getTheme();
-    $customAttributes = $component->getTdAttributes($column, $row, $colIndex, $rowIndex)
+    $customAttributes = $this->getTdAttributes($column, $row, $colIndex, $rowIndex)
 @endphp
 
-@if ($theme === 'tailwind')
-    <td
-        @if ($column->isClickable())
-            onclick="window.open('{{ $component->getTableRowUrl($row) }}', '{{ $component->getTableRowUrlTarget($row) ?? '_self' }}')"
+<td wire:key="{{ $tableName . '-table-td-'.$row->{$primaryKey}.'-'.$column->getSlug() }}"
+    @if ($column->isClickable())
+        @if($this->getTableRowUrlTarget($row) === "navigate") wire:navigate href="{{ $this->getTableRowUrl($row) }}"
+        @else onclick="window.open('{{ $this->getTableRowUrl($row) }}', '{{ $this->getTableRowUrlTarget($row) ?? '_self' }}')"
         @endif
-
+    @endif
         {{
             $attributes->merge($customAttributes)
-                ->class(['px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-white' => $customAttributes['default'] ?? true])
-                ->class(['hidden sm:table-cell' => $column && $column->shouldCollapseOnMobile()])
-                ->class(['hidden md:table-cell' => $column && $column->shouldCollapseOnTablet()])
+                ->class(['px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-white' => $isTailwind && ($customAttributes['default'] ?? true)])
+                ->class(['hidden' =>  $isTailwind && $column && $column->shouldCollapseAlways()])
+                ->class(['hidden md:table-cell' => $isTailwind && $column && $column->shouldCollapseOnMobile()])
+                ->class(['hidden lg:table-cell' => $isTailwind && $column && $column->shouldCollapseOnTablet()])
+                ->class(['' => $isBootstrap && ($customAttributes['default'] ?? true)])
+                ->class(['d-none' => $isBootstrap && $column && $column->shouldCollapseAlways()])
+                ->class(['d-none d-md-table-cell' => $isBootstrap && $column && $column->shouldCollapseOnMobile()])
+                ->class(['d-none d-lg-table-cell' => $isBootstrap && $column && $column->shouldCollapseOnTablet()])
+                ->class(['laravel-livewire-tables-cursor' => $isBootstrap && $column && $column->isClickable()])
                 ->except('default')
         }}
     >
         {{ $slot }}
-    </td>
-@elseif ($theme === 'bootstrap-4' || $theme === 'bootstrap-5')
-    <td
-        @if ($column->isClickable())
-            onclick="window.open('{{ $component->getTableRowUrl($row) }}', '{{ $component->getTableRowUrlTarget($row) ?? '_self' }}')"
-            style="cursor:pointer"
-        @endif
-
-        {{
-            $attributes->merge($customAttributes)
-                ->class(['' => $customAttributes['default'] ?? true])
-                ->class(['d-none d-sm-table-cell' => $column && $column->shouldCollapseOnMobile()])
-                ->class(['d-none d-md-table-cell' => $column && $column->shouldCollapseOnTablet()])
-                ->except('default')
-        }}
-    >
-        {{ $slot }}
-    </td>
-@endif
+</td>

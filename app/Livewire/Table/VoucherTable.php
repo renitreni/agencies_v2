@@ -3,7 +3,9 @@
 namespace App\Livewire\Table;
 
 use App\Models\Voucher;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -29,7 +31,7 @@ final class VoucherTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Voucher::query();
+        return Voucher::query()->with('jobOrder.foreignAgency');
     }
 
     public function relationSearch(): array
@@ -40,7 +42,6 @@ final class VoucherTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('id')
             ->add('id')
             ->add('agency_id')
             ->add('name')
@@ -72,7 +73,43 @@ final class VoucherTable extends PowerGridComponent
             ->add('ticket_to_kuwait')
             ->add('ticket_to_qatar')
             ->add('agent')
-            ->add('created_at');
+            ->add('created_at')
+            ->add('created_at_formatted', fn($dish) => Carbon::parse($dish->created_at)->format('F j, Y'))
+            ->add('status_formatted', function ($row) {
+                $attr = ' data-bs-toggle="modal" data-bs-target="#voucherStatusModal"
+                wire:click="$dispatch(\'editStatus\', { \'id\' :' . $row->id . '})"';
+
+                if ($row->status == '') {
+                    return view('buttons.secondary', [
+                        'attr' => $attr,
+                        'label' => 'None',
+                    ]);
+                }
+                $message = 'text-warning';
+                $message = $row->status == 'deployed' ? 'text-success' : $message;
+                $message = $row->status == 'back-out' ? 'text-danger' : $message;
+
+                return view('buttons.light', [
+                    'attr' => $attr,
+                    'label' => "<div class='spinner-grow $message' role='status'></div>
+                                  <div class='my-auto ms-2'>" . Str::upper($row->status) . '</div>',
+                ]);
+            })
+            ->add('agency_name_formatted', function ($row) {
+                $attr = ' data-bs-toggle="modal" data-bs-target="#jobOrderModal"
+                  wire:click="$dispatch(\'editJobOrder\', { \'id\':'.$row->id.', \'foreign_agency_id\':\''.$row->foreign_agency_id.'\'})"';
+                
+                if (!$row->jobOrder) {
+                    return view('buttons.secondary', [
+                        'attr' => $attr,
+                        'label' => 'None',
+                    ]);
+                }
+                return view('buttons.link', [
+                    'attr' => $attr,
+                    'label' => "<div class='text-dark font-weight-bold'>".Str::upper($row->jobOrder->foreignAgency->agency_name).'</div>',
+                ]);
+            });
     }
 
     public function columns(): array
@@ -80,16 +117,21 @@ final class VoucherTable extends PowerGridComponent
         return [
             Column::action('Action'),
 
+            Column::make('Created at', 'created_at_formatted', 'created_at')
+                ->sortable()
+                ->searchable(),
+
             Column::make('Id', 'id')->hidden(),
-            Column::make('Agency id', 'agency_id')
+
+            Column::make('Status', 'status_formatted', 'status')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Job Status', 'agency_name_formatted', 'agency_name')
                 ->sortable()
                 ->searchable(),
 
             Column::make('Name', 'name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
 
@@ -203,10 +245,6 @@ final class VoucherTable extends PowerGridComponent
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
-
-            Column::make('Created at', 'created_at')
-                ->sortable()
-                ->searchable(),
         ];
     }
 
@@ -218,7 +256,7 @@ final class VoucherTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(Voucher $row): array

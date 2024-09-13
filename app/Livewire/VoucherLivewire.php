@@ -14,6 +14,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -36,7 +37,6 @@ class VoucherLivewire extends Component
     public array $voucherHeader = [];
 
     protected $listeners = [
-        'editVoucher' => 'edit',
         'editJobOrder' => 'editJobOrder',
         'editExpenses' => 'editExpenses',
     ];
@@ -51,11 +51,13 @@ class VoucherLivewire extends Component
             ->get()
             ->toArray();
 
-        $this->fra = ForeignAgency::query()
-            ->select(['id', 'agency_name'])
-            ->where('agency_id', Auth::user()->agency_id)
-            ->get()
-            ->toArray();
+        $this->fra = Cache::rememberForever('load-fra-' . Auth::user()->agency_id, function () {
+            return ForeignAgency::query()
+                ->select(['id', 'agency_name'])
+                ->where('agency_id', Auth::user()->agency_id)
+                ->get()
+                ->toArray();
+        });
     }
 
     public function render(): Factory|View|Application
@@ -93,7 +95,7 @@ class VoucherLivewire extends Component
         $this->dispatch('callToaster', [
             'message' => isset($this->details['id']) ? 'Voucher has been updated!' : 'New Voucher has been Added!',
         ]);
-        
+
         $this->details = [];
     }
 
@@ -129,15 +131,23 @@ class VoucherLivewire extends Component
     public function edit($id)
     {
         $this->details = Voucher::query()->find($id)->toArray();
-        $this->voucherStatus = VoucherStatus::query()->where('voucher_id',$id)->first()?->toArray() ?? [];
+        $this->voucherStatus = VoucherStatus::query()->where('voucher_id', $id)->first()?->toArray() ?? [];
         $this->js('$("#voucherEditModal").modal("show")');
     }
 
-    public function editJobOrder($data)
+    #[On('editStatus')]
+    public function editStatus($id)
     {
-        $this->details = Voucher::query()->find($data['id'])->toArray();
+        $this->details = Voucher::query()->find($id)->toArray();
+        $this->voucherStatus = VoucherStatus::query()->where('voucher_id', $id)->first()?->toArray() ?? [];
+    }
+
+    #[On('editJobOrder')]
+    public function editJobOrder($id)
+    {
+        $this->details = Voucher::query()->find($id)->toArray();
         $this->jobOrder = JobOrder::query()
-            ->where('voucher_id', $data['id'])
+            ->where('voucher_id', $id)
             ->first()?->toArray() ?? [];
     }
 
@@ -151,10 +161,12 @@ class VoucherLivewire extends Component
         JobOrder::query()
             ->updateOrCreate(
                 ['voucher_id' => $this->details['id']],
-                $this->jobOrder
+                [
+                    "foreign_agency_id" => $this->jobOrder['foreign_agency_id']
+                ]
             );
 
-        $this->dispatch('callToaster', ['message' => 'Voucher Status Updated!']);
+        $this->dispatch('callToaster', ['message' => 'Job Order Updated!']);
     }
 
     public function addHeader()

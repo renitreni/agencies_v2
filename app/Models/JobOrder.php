@@ -14,4 +14,9 @@ class JobOrder extends Model
         'foreign_agency_id',
         'agency_id',
     ];
+
+    public function foreignAgency()
+    {
+        return $this->belongsTo(ForeignAgency::class);
+    }
 }

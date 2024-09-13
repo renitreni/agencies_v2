@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class FRAComponent extends Component
@@ -17,11 +18,13 @@ class FRAComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        $this->fra = ForeignAgency::query()
-            ->select(['id', 'agency_name'])
-            ->where('agency_id', Auth::user()->agency_id)
-            ->get()
-            ->toArray();
+        $this->fra = Cache::rememberForever('load-fra-'.Auth::user()->agency_id, function(){
+            return ForeignAgency::query()
+                ->select(['id', 'agency_name'])
+                ->where('agency_id', Auth::user()->agency_id)
+                ->get()
+                ->toArray();
+        });
 
         return view('livewire.component.f-r-a-component');
     }

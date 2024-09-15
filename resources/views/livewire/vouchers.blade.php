@@ -44,10 +44,10 @@
                     wire:model.live="details.passport_refund"></div>
             <div class="col-md-6 mb-2"><label>Ticket</label><input type="text" class="form-control"
                     wire:model.live="details.ticket"></div>
-            <div class="col-md-6 mb-2"><label>Passporting Allowance</label><input type="text" class="form-control"
+            <div class="col-md-6 mb-2"><label>Passporting Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.passporting_allowance">
             </div>
-            <div class="col-md-6 mb-2"><label>Medical Allowance</label><input type="text" class="form-control"
+            <div class="col-md-6 mb-2"><label>Medical Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.medical_allowance">
             </div>
             <div class="col-md-6 mb-2"><label>Medical Follow-up</label><input type="text" class="form-control"
@@ -57,30 +57,30 @@
                     wire:model.live="details.requirements"></div>
             <div class="col-md-4 mb-2"><label>Red Rebon NBI</label><input type="text" class="form-control"
                     wire:model.live="details.red_rebon_nbi"></div>
-            <div class="col-md-4 mb-2"><label>NBI Fee</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>NBI Fee</label><input type="number" class="form-control"
                     wire:model.live="details.nbi_renewal"></div>
-            <div class="col-md-4 mb-2"><label>TESDA Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>TESDA Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.tesda_allowance"></div>
             <div class="col-md-4 mb-2"><label>PDOS</label><input type="text" class="form-control"
                     wire:model.live="details.pdos"></div>
             <div class="col-md-4 mb-2"><label>Info Sheet</label><input type="text" class="form-control"
                     wire:model.live="details.info_sheet"></div>
-            <div class="col-md-4 mb-2"><label>OWWA Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>OWWA Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.owwa_allowance"></div>
-            <div class="col-md-4 mb-2"><label>Office Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Office Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.office_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>Travel Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Travel Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.travel_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>Weekly Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Weekly Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.weekly_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>NBI Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>NBI Refund</label><input type="number" class="form-control"
                     wire:model.live="details.nbi_refund"></div>
-            <div class="col-md-4 mb-2"><label>PSA Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>PSA Refund</label><input type="number" class="form-control"
                     wire:model.live="details.psa_refund"></div>
-            <div class="col-md-4 mb-2"><label>Fare Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Fare Refund</label><input type="number" class="form-control"
                     wire:model.live="details.fare_refund"></div>
             <div class="col-md-4 mb-2"><label>Fit To Work</label><input type="text" class="form-control"
                     wire:model.live="details.fit_to_work"></div>
@@ -88,7 +88,7 @@
                     wire:model.live="details.repat"></div>
             <div class="col-md-4 mb-2"><label>Stamping</label><input type="text" class="form-control"
                     wire:model.live="details.stamping"></div>
-            <div class="col-md-4 mb-2"><label>Vaccine Fare</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Vaccine Fare</label><input type="number" class="form-control"
                     wire:model.live="details.vaccine_fare"></div>
             <div class="col-md-4 mb-2"><label>Agent</label><input type="text" class="form-control"
                     wire:model.live="details.agent"></div>
@@ -110,10 +110,10 @@
                     wire:model.live="details.passport_refund"></div>
             <div class="col-md-6 mb-2"><label>Ticket</label><input type="text" class="form-control"
                     wire:model.live="details.ticket"></div>
-            <div class="col-md-6 mb-2"><label>Passporting Allowance</label><input type="text" class="form-control"
+            <div class="col-md-6 mb-2"><label>Passporting Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.passporting_allowance">
             </div>
-            <div class="col-md-6 mb-2"><label>Medical Allowance</label><input type="text" class="form-control"
+            <div class="col-md-6 mb-2"><label>Medical Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.medical_allowance">
             </div>
             <div class="col-md-6 mb-2"><label>Medical Follow-up</label><input type="text" class="form-control"
@@ -123,30 +123,30 @@
                     wire:model.live="details.requirements"></div>
             <div class="col-md-4 mb-2"><label>Red Rebon NBI</label><input type="text" class="form-control"
                     wire:model.live="details.red_rebon_nbi"></div>
-            <div class="col-md-4 mb-2"><label>NBI Fee</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>NBI Fee</label><input type="number" class="form-control"
                     wire:model.live="details.nbi_renewal"></div>
-            <div class="col-md-4 mb-2"><label>TESDA Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>TESDA Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.tesda_allowance"></div>
             <div class="col-md-4 mb-2"><label>PDOS</label><input type="text" class="form-control"
                     wire:model.live="details.pdos"></div>
             <div class="col-md-4 mb-2"><label>Info Sheet</label><input type="text" class="form-control"
                     wire:model.live="details.info_sheet"></div>
-            <div class="col-md-4 mb-2"><label>OWWA Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>OWWA Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.owwa_allowance"></div>
-            <div class="col-md-4 mb-2"><label>Office Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Office Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.office_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>Travel Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Travel Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.travel_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>Weekly Allowance</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Weekly Allowance</label><input type="number" class="form-control"
                     wire:model.live="details.weekly_allowance">
             </div>
-            <div class="col-md-4 mb-2"><label>NBI Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>NBI Refund</label><input type="number" class="form-control"
                     wire:model.live="details.nbi_refund"></div>
-            <div class="col-md-4 mb-2"><label>PSA Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>PSA Refund</label><input type="number" class="form-control"
                     wire:model.live="details.psa_refund"></div>
-            <div class="col-md-4 mb-2"><label>Fare Refund</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Fare Refund</label><input type="number" class="form-control"
                     wire:model.live="details.fare_refund"></div>
             <div class="col-md-4 mb-2"><label>Fit To Work</label><input type="text" class="form-control"
                     wire:model.live="details.fit_to_work"></div>
@@ -154,13 +154,8 @@
                     wire:model.live="details.repat"></div>
             <div class="col-md-4 mb-2"><label>Stamping</label><input type="text" class="form-control"
                     wire:model.live="details.stamping"></div>
-            <div class="col-md-4 mb-2"><label>Vaccine Fare</label><input type="text" class="form-control"
+            <div class="col-md-4 mb-2"><label>Vaccine Fare</label><input type="number" class="form-control"
                     wire:model.live="details.vaccine_fare"></div>
-            <div class="col-md-4 mb-2"><label>Ticket to Kuwait</label><input type="text" class="form-control"
-                    wire:model.live="details.ticket_to_kuwait">
-            </div>
-            <div class="col-md-4 mb-2"><label>Ticket to Qatar</label><input type="text" class="form-control"
-                    wire:model.live="details.ticket_to_qatar"></div>
         </div>
         <x-slot name="button">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal"

@@ -55,7 +55,7 @@
                     
                 </div>
             </div>
-            <livewire:deployments-table :filters="$params" />
+            <livewire:table.deployment-table/>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-12">
                             <label>Type</label>
-                            <select class="form-select" wire:model.live='detail.type'>
+                            <select class="form-select" wire:model='detail.type'>
                                 <option value="">-- Select Option --</option>
                                 <option value="ex-abroad">Ex-Abroad</option>
                                 <option value="first-timer">First-Timer</option>
@@ -79,25 +79,25 @@
                         </div>
                         <div class="col-12">
                             <label>PPT</label>
-                            <input type="text" class="form-control" wire:model.live='detail.ppt'>
+                            <input type="text" class="form-control" wire:model='detail.ppt'>
                         </div>
                         <div class="col-12">
                             <label>Age</label>
-                            <input type="number" class="form-control" wire:model.live='detail.age'>
+                            <input type="number" class="form-control" wire:model='detail.age'>
                         </div>
                         <div class="col-12">
                             <label>Fit to Work</label>
-                            <input type="text" class="form-control" wire:model.live='detail.fit'>
+                            <input type="text" class="form-control" wire:model='detail.fit'>
                         </div>
                         <div class="col-12">
                             <label>Contract Signing</label>
-                            <input type="text" class="form-control" wire:model.live='detail.contract_signing'>
+                            <input type="text" class="form-control" wire:model='detail.contract_signing'>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click='store'>Save</button>
+                    <button type="button" class="btn btn-primary" wire:click='storeDeployment'>Save</button>
                 </div>
             </div>
         </div>

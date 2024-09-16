@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Deployment;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DeploymentLivewire extends Component
@@ -19,6 +20,13 @@ class DeploymentLivewire extends Component
 
     public function mount()
     {
+        $this->detail = [
+            'type' => '',
+            'ppt' => '',
+            'age' => '',
+            'fit' => '',
+            'contract_signing'  => ''
+        ];
         $this->params['account'] = Auth::id();
 
         $this->accounts = User::query()
@@ -34,16 +42,17 @@ class DeploymentLivewire extends Component
         return view('livewire.deployment-livewire');
     }
 
-    public function bind($value)
+    #[On('edit-deployment')]
+    public function bind($id)
     {
-        $this->detail = Deployment::where('voucher_id', $value['id'])->first()?->toArray() ?? [];
-        $this->detail['voucher_id'] = $value['id'];
-
+        $this->detail = Deployment::where('voucher_id', $id)->first()?->toArray() ?? [];
+        $this->detail['voucher_id'] = $id;
         $this->dispatch('deploy-modal');
     }
 
-    public function store()
+    public function storeDeployment()
     {
+        dd($this->detail);
         Deployment::updateOrCreate(
             ['voucher_id' => $this->detail['voucher_id'] ?? null],
             $this->detail
